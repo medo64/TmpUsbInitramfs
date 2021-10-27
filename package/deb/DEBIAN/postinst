@@ -1,0 +1,20 @@
+#!/bin/bash
+set -e
+
+APP_DIR=/usr/lib/tmpusb-zfs-passphrase
+
+# Invoke for the first time
+$APP_DIR/bin/tmpusb-zfs-initramfs-adjust
+
+# APT script
+cat << EOF > /etc/apt/apt.conf.d/84-tmpusb-zfs-passphrase
+APT::Install::Post-Invoke-Success {
+  "[ -f $APP_DIR/bin/tmpusb-zfs-initramfs-adjust ] && $APP_DIR/bin/tmpusb-zfs-initramfs-adjust || true";
+};
+EOF
+
+# Just loading to suppress warning
+. /usr/share/debconf/confmodule || true
+
+# Done
+exit 0

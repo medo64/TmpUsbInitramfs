@@ -1,0 +1,28 @@
+#!/bin/bash
+set -e
+
+APP_DIR=/usr/lib/tmpusb-zfs-passphrase
+IRF_DIR=/usr/share/initramfs-tools/scripts
+
+# Restore backup
+BACKUP_FILE=$APP_DIR/backup/zfs
+CURRENT_FILE=$IRF_DIR/zfs
+if [[ -f $BACKUP_FILE ]]; then
+    chmod --reference=$CURRENT_FILE $BACKUP_FILE
+    chown --reference=$CURRENT_FILE $BACKUP_FILE
+    mv "$BACKUP_FILE" "$CURRENT_FILE"
+fi
+
+# Remove startup script
+if [[ -f /etc/apt/apt.conf.d/84-tmpusb-zfs-passphrase ]]; then
+    rm /etc/apt/apt.conf.d/84-tmpusb-zfs-passphrase
+fi
+
+# Purge debconf
+if [ "$1" = "purge" -a -e /usr/share/debconf/confmodule ]; then
+    . /usr/share/debconf/confmodule
+    db_purge
+fi
+
+# Done
+exit 0
