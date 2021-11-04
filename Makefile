@@ -6,8 +6,8 @@ endif
 
 
 DIST_NAME := tmpusb-zfs-passphrase
-DIST_VERSION := 0.0.1
-DEB_BUILD_ARCH := $(shell getconf LONG_BIT | sed "s/32/i386/" | sed "s/64/amd64/")
+DIST_VERSION := $(shell cat CHANGES.md | head -1 | cut -d" " -f2)
+DEB_BUILD_ARCH := all
 
 SOURCE_LIST := Makefile CHANGES.md LICENSE.md README.md package/ src/
 
