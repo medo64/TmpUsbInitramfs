@@ -26,7 +26,7 @@ echo "Using $PARTITION"
 sleep 2
 
 if [ -e "$PARTITION" ]; then
-    echo "Mounting $PARTITION..."
+    echo "Mounting $PARTITION to /tmpusb..."
     mkdir /tmpusb
     mount -t vfat -o ro "$PARTITION" /tmpusb  # mount to root as /mnt might not be available here
     if [ $? -eq 0 ]; then

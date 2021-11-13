@@ -14,7 +14,7 @@ esac
 
 
 if [ -e "/tmpusb" ]; then
-    echo "Unmounting $PARTITION..."
+    echo "Unmounting /tmpusb..."
     umount /tmpusb
     rmdir /tmpusb
 fi
