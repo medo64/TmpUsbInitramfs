@@ -1,3 +1,8 @@
+### 0.1.0 [2021-11-12] ###
+
+* Updated preinit scripts
+
+
 ### 0.0.2 [2021-11-03] ###
 
 * Using http repository for packages

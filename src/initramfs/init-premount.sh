@@ -21,7 +21,7 @@ fi
 
 echo -n "Waiting for TmpUsb"
 for I in `seq 1 20`; do
-    PARTITION=`ls --color=never /dev/disk/by-id/usb-*_TmpUsb_*-part1 | head -1`  # use the first one
+    PARTITION=`ls /dev/disk/by-id/usb-*_TmpUsb_*-part1 | sed -n 1p`  # use the first one
     if [ -e "$PARTITION" ]; then break; fi
     echo -n .
     sleep 1
