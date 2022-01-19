@@ -1,3 +1,8 @@
+### 0.2.0 [2022-01-18] ###
+
+* Supporting multiple TmpUsb devices
+
+
 ### 0.1.1 [2021-11-12] ###
 
 * Removed ANSI coloring from scripts
