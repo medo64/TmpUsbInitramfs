@@ -45,7 +45,7 @@ for PARTITION in $PARTITIONS; do
                 exit 0
             else
                 echo "No files found on $PARTITION!" >&2
-                umount /tmpusb || sleep 1 && umount /tmpusb                                   # unmount if no files are there
+                umount /tmpusb || ( sleep 1 && umount /tmpusb )                               # unmount if no files are there
             fi
         else
             echo "Error mounting $PARTITION!" >&2

@@ -1,3 +1,8 @@
+### 0.2.1 [2022-01-24] ###
+
+* Fixed unmount in startup script
+
+
 ### 0.2.0 [2022-01-18] ###
 
 * Supporting multiple TmpUsb devices
