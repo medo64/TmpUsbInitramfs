@@ -39,7 +39,7 @@ for PARTITION in $PARTITIONS; do
         mkdir /tmpusb
         MOUNT_STATUS=`mount -t vfat -o ro "$PARTITION" /tmpusb 2>/dev/null || echo "ERROR"`   # mount in / as /mnt might not be available here
         if [ "$MOUNT_STATUS" != "ERROR" ]; then
-            FILE_COUNT=`ls -1 /tmpusb/ 2>/dev/null | wc -l`                                   # check if any files are present
+            FILE_COUNT=`ls -1 /tmpusb/ 2>/dev/null | grep -v 'System Volume Information' | wc -l`                                   # check if any files are present
             if [ "$FILE_COUNT" -gt 0 ]; then
                 echo "Using $PARTITION (has $FILE_COUNT files)"
                 exit 0
