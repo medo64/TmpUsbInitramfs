@@ -72,7 +72,7 @@ package: dist
 	@install -d $(PACKAGE_DIR)/usr/lib/tmpusb-zfs-passphrase/initramfs/
 	@install -m 644 src/initramfs/init-premount.sh $(PACKAGE_DIR)/usr/lib/tmpusb-zfs-passphrase/initramfs/init-premount
 	@install -m 644 src/initramfs/init-bottom.sh $(PACKAGE_DIR)/usr/lib/tmpusb-zfs-passphrase/initramfs/init-bottom
-	@fakeroot dpkg-deb --build $(PACKAGE_DIR)/ > /dev/null
+	@fakeroot dpkg-deb -Z gzip --build $(PACKAGE_DIR)/ > /dev/null
 	@cp /tmp/$(PACKAGE_NAME).deb dist/
 	@$(RM) -r $(PACKAGE_DIR)/
 	@lintian --suppress-tags script-not-executable dist/$(PACKAGE_NAME).deb
