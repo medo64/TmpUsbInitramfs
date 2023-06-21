@@ -31,6 +31,11 @@ if [ "$PARTITIONS" = "" ]; then
     exit 1
 fi
 
+if [ -e /tmpusb ]; then  # unmount if already mounted
+    umount /tmpusb 2>/dev/null || true
+    rmdir /tmpusb  2>/dev/null || true
+fi
+
 for PARTITION in $PARTITIONS; do
     echo "Checking $PARTITION"
 
@@ -50,6 +55,8 @@ for PARTITION in $PARTITIONS; do
         else
             echo "Error mounting $PARTITION!" >&2
         fi
+
+        echo "Removing /tmpusb"
         rmdir /tmpusb                                                                        # remove directory so it can be created again
     else
         echo "Cannot access TmpUsb partition!" >&2
