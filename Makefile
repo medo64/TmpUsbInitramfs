@@ -69,6 +69,7 @@ package: dist
 	@install -d $(PACKAGE_DIR)/usr/lib/tmpusb-zfs-passphrase/backup/
 	@install -d $(PACKAGE_DIR)/usr/lib/tmpusb-zfs-passphrase/bin/
 	@install -m 755 src/initramfs-adjust.sh $(PACKAGE_DIR)/usr/lib/tmpusb-zfs-passphrase/bin/tmpusb-zfs-initramfs-adjust
+	@install -m 755 src/load-keys.sh $(PACKAGE_DIR)/usr/lib/tmpusb-zfs-passphrase/bin/tmpusb-zfs-load-keys
 	@install -d $(PACKAGE_DIR)/usr/lib/tmpusb-zfs-passphrase/initramfs/
 	@install -m 644 src/initramfs/init-premount.sh $(PACKAGE_DIR)/usr/lib/tmpusb-zfs-passphrase/initramfs/init-premount
 	@install -m 644 src/initramfs/init-bottom.sh $(PACKAGE_DIR)/usr/lib/tmpusb-zfs-passphrase/initramfs/init-bottom

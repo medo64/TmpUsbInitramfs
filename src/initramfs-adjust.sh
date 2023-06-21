@@ -1,8 +1,5 @@
 #!/bin/sh -e
 
-APP_DIR=/usr/lib/tmpusb-zfs-passphrase
-IRF_DIR=/usr/share/initramfs-tools/scripts
-
 if [ -t 1 ]; then
     ANSI_RESET='\e[0m'
     ANSI_RED='\e[31m'
@@ -11,6 +8,10 @@ if [ -t 1 ]; then
 fi
 
 EXIT_CODE=0
+
+# adjust initramfs script
+APP_DIR=/usr/lib/tmpusb-zfs-passphrase
+IRF_DIR=/usr/share/initramfs-tools/scripts
 if [ -e $IRF_DIR/zfs ]; then
     if grep -q 'KEYLOCATION=prompt' $IRF_DIR/zfs; then
         echo "ZFS initramfs script [${ANSI_GREEN}OK${ANSI_RESET}]"
@@ -49,7 +50,24 @@ if [ -e $IRF_DIR/zfs ]; then
     fi
 else
     echo "${ANSI_RED}Cannot find ZFS initramfs-tools script${ANSI_RESET}" >&2
-    exit 10
+    EXIT_CODE=10
+fi
+
+# adjust zfs-mount service
+ZFS_MOUNT_SERVICE_FILE=/usr/lib/systemd/system/zfs-mount.service
+if [ -e $ZFS_MOUNT_SERVICE_FILE ]; then
+    if grep -q 'ExecStartPre=/usr/lib/tmpusb-zfs-passphrase/bin/tmpusb-zfs-load-keys' $ZFS_MOUNT_SERVICE_FILE; then
+        echo "ZFS mount service [${ANSI_GREEN}OK${ANSI_RESET}]"
+    else
+        echo "ZFS mount service [${ANSI_CYAN}UPDATE${ANSI_RESET}]"
+        sed -i '/^ExecStart=/i\ExecStartPre=/usr/lib/tmpusb-zfs-passphrase/bin/tmpusb-zfs-load-keys' $ZFS_MOUNT_SERVICE_FILE
+        if systemctl daemon-reload; then
+            echo "ZFS mount service update [${ANSI_GREEN}OK${ANSI_RESET}]"
+        else
+            echo "ZFS mount service update [${ANSI_RED}NOK${ANSI_RESET}]"
+            EXIT_CODE=21
+        fi
+    fi
 fi
 
 exit $EXIT_CODE

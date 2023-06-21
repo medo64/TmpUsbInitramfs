@@ -13,6 +13,11 @@ if [[ -f $BACKUP_FILE ]]; then
     mv "$BACKUP_FILE" "$CURRENT_FILE"
 fi
 
+# Remove zfs-mount addition
+if [ -e /usr/lib/systemd/system/zfs-mount.service ]; then
+    sed -i '/ExecStartPre=\/usr\/lib\/tmpusb-zfs-passphrase\/bin\/tmpusb-zfs-load-keys/d' /usr/lib/systemd/system/zfs-mount.service || true
+fi
+
 # Remove startup script
 if [[ -f /etc/apt/apt.conf.d/84-tmpusb-zfs-passphrase ]]; then
     rm /etc/apt/apt.conf.d/84-tmpusb-zfs-passphrase
