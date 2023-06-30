@@ -18,11 +18,6 @@ if [ -e $IRF_DIR/zfs ]; then
     else
         echo "ZFS initramfs script [${ANSI_CYAN}UPDATE${ANSI_RESET}]"
 
-        cp $APP_DIR/initramfs/init-premount $IRF_DIR/init-premount/tmpusb
-        cp $APP_DIR/initramfs/init-bottom $IRF_DIR/init-bottom/tmpusb
-        chmod 755 $IRF_DIR/init-premount/tmpusb
-        chmod 755 $IRF_DIR/init-bottom/tmpusb
-
         mkdir -p $APP_DIR/backup/
         cp $IRF_DIR/zfs $APP_DIR/backup/zfs
 
