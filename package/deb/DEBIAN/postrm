@@ -12,6 +12,7 @@ if [[ -f $BACKUP_FILE ]]; then
     chown --reference=$CURRENT_FILE $BACKUP_FILE
     mv "$BACKUP_FILE" "$CURRENT_FILE"
 fi
+rmdir $APP_DIR/backup 2>/dev/null
 
 # Remove zfs-mount addition
 if [ -e /usr/lib/systemd/system/zfs-mount.service ]; then
