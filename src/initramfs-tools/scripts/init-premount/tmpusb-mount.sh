@@ -14,7 +14,7 @@ esac
 
 
 echo -n "Waiting for TmpUsb"
-for I in `seq 1 20`; do                                                                      # wait for maximum of 20 seconds
+for I in `seq 1 10`; do                                                                      # wait for maximum of 10 seconds
     PARTITIONS=`ls -1 /dev/disk/by-id/usb-*_TmpUsb_*-part1 2>/dev/null || true`              # get all TmpUsb partitions
     if [ "$PARTITIONS" != "" ]; then
         sleep 1                                                                              # wait to detect other USB devices
