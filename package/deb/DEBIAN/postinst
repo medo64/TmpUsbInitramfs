@@ -1,15 +1,15 @@
 #!/bin/bash
 set -e
 
-APP_DIR=/usr/lib/tmpusb-zfs-passphrase
+APP_DIR=/usr/lib/tmpusb-initramfs
 
 # Invoke for the first time
 $APP_DIR/bin/tmpusb-zfs-initramfs-adjust
 
 # APT script
-cat << EOF > /etc/apt/apt.conf.d/84-tmpusb-zfs-passphrase
+cat << EOF > /etc/apt/apt.conf.d/84-tmpusb-initramfs
 APT::Install::Post-Invoke-Success {
-  "[ -f $APP_DIR/bin/tmpusb-zfs-initramfs-adjust ] && $APP_DIR/bin/tmpusb-zfs-initramfs-adjust || true";
+  "[ -f $APP_DIR/bin/initramfs-adjust ] && $APP_DIR/bin/initramfs-adjust || true";
 };
 EOF
 

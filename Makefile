@@ -5,7 +5,7 @@ ifeq ($(PREFIX),)
 endif
 
 
-DIST_NAME := tmpusb-zfs-passphrase
+DIST_NAME := tmpusb-initramfs
 DIST_VERSION := $(shell cat CHANGES.md | head -1 | cut -d" " -f2)
 DEB_BUILD_ARCH := all
 
@@ -48,28 +48,28 @@ package: dist
 	@cp -r package/deb/DEBIAN $(PACKAGE_DIR)/
 	@sed -i "s/MAJOR.MINOR.PATCH/$(DIST_VERSION)/" $(PACKAGE_DIR)/DEBIAN/control
 	@sed -i "s/ARCHITECTURE/$(DEB_BUILD_ARCH)/" $(PACKAGE_DIR)/DEBIAN/control
-	@mkdir -p $(PACKAGE_DIR)/usr/share/doc/tmpusb-zfs-passphrase/
-	@cp package/deb/copyright $(PACKAGE_DIR)/usr/share/doc/tmpusb-zfs-passphrase/copyright
+	@mkdir -p $(PACKAGE_DIR)/usr/share/doc/$(DIST_NAME)/
+	@cp package/deb/copyright $(PACKAGE_DIR)/usr/share/doc/$(DIST_NAME)/copyright
 	@cp CHANGES.md build/changelog
 	@sed -i '/^$$/d' build/changelog
 	@sed -i '/## Release Notes ##/d' build/changelog
-	@sed -i '1{s/### \(.*\) \[.*/tmpusb-zfs-passphrase \(\1\) stable; urgency=low/}' build/changelog
+	@sed -i '1{s/### \(.*\) \[.*/$(DIST_NAME) \(\1\) stable; urgency=low/}' build/changelog
 	@sed -i '/###/,$$d' build/changelog
 	@sed -i 's/\* \(.*\)/  \* \1/' build/changelog
 	@echo >> build/changelog
 	@echo ' -- Josip Medved <jmedved@jmedved.com>  $(shell date -R)' >> build/changelog
-	@gzip -cn --best build/changelog > $(PACKAGE_DIR)/usr/share/doc/tmpusb-zfs-passphrase/changelog.gz
+	@gzip -cn --best build/changelog > $(PACKAGE_DIR)/usr/share/doc/$(DIST_NAME)/changelog.gz
 	@find $(PACKAGE_DIR)/ -type d -exec chmod 755 {} +
 	@find $(PACKAGE_DIR)/ -type f -exec chmod 644 {} +
 	@chmod 755 $(PACKAGE_DIR)/DEBIAN/config
 	@chmod 755 $(PACKAGE_DIR)/DEBIAN/postinst
 	@chmod 755 $(PACKAGE_DIR)/DEBIAN/postrm
-	@install -d $(PACKAGE_DIR)/usr/lib/tmpusb-zfs-passphrase/
-	@install -m 644 LICENSE.md $(PACKAGE_DIR)/usr/lib/tmpusb-zfs-passphrase/LICENSE
-	@install -d $(PACKAGE_DIR)/usr/lib/tmpusb-zfs-passphrase/backup/
-	@install -d $(PACKAGE_DIR)/usr/lib/tmpusb-zfs-passphrase/bin/
-	@install -m 755 src/initramfs-adjust.sh $(PACKAGE_DIR)/usr/lib/tmpusb-zfs-passphrase/bin/tmpusb-zfs-initramfs-adjust
-	@install -m 755 src/load-keys.sh $(PACKAGE_DIR)/usr/lib/tmpusb-zfs-passphrase/bin/tmpusb-zfs-load-keys
+	@install -d $(PACKAGE_DIR)/usr/lib/$(DIST_NAME)/
+	@install -m 644 LICENSE.md $(PACKAGE_DIR)/usr/lib/$(DIST_NAME)/LICENSE
+	@install -d $(PACKAGE_DIR)/usr/lib/$(DIST_NAME)/backup/
+	@install -d $(PACKAGE_DIR)/usr/lib/$(DIST_NAME)/bin/
+	@install -m 755 src/initramfs-adjust.sh $(PACKAGE_DIR)/usr/lib/$(DIST_NAME)/bin/tmpusb-zfs-initramfs-adjust
+	@install -m 755 src/load-keys.sh $(PACKAGE_DIR)/usr/lib/$(DIST_NAME)/bin/tmpusb-zfs-load-keys
 	@install -d $(PACKAGE_DIR)/usr/lib/cryptsetup/scripts
 	@install -m 755 src/cryptsetup/scripts/decrypt_tmpusb.sh $(PACKAGE_DIR)/usr/lib/cryptsetup/scripts/decrypt_tmpusb
 	@install -d $(PACKAGE_DIR)/usr/share/initramfs-tools/scripts/init-premount/

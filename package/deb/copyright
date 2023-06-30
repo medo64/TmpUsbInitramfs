@@ -1,7 +1,7 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: tmpusb-zfs-passphrase
+Upstream-Name: tmpusb-initramfs
 Upstream-Contact: Josip Medved <jmedved@jmedved.com>
-Source: https://www.medo64.com/tmpusb-zfs-passphrase/
+Source: https://www.medo64.com/tmpusb-initramfs/
 
 
 Files: *

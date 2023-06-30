@@ -1,7 +1,7 @@
 #!/bin/sh -e
 
 # mount tmpusb
-sh -e /usr/lib/tmpusb-zfs-passphrase/initramfs/init-premount
+sh -e /usr/share/initramfs-tools/scripts/init-premount/tmpusb-mount
 
 # load keys
 echo "Checking for unavailable datasets"
@@ -12,4 +12,4 @@ for DATASET in $DATASETS; do
 done
 
 # unmount tmpusb
-sh -e /usr/lib/tmpusb-zfs-passphrase/initramfs/init-bottom
+sh -e /usr/share/initramfs-tools/scripts/init-bottom/tmpusb-umount
