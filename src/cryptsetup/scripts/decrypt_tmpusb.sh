@@ -40,12 +40,13 @@ if ! KID_="$(keyctl search @u user "$ID_" 2>/dev/null)" || [ -z "$KID_" ] || [ "
     if [ -n "$IDFILE_" ] && [ -f "/tmpusb/$IDFILE_" ]; then
         # since there is a key file with ID name, use it
         KEY_="$(cat /tmpusb/$IDFILE_)"
-    else
+    elif [ -f "/tmpusb/$(hostname).pwd" ]; then
         # if there is no key file with ID name, try to use hostname
         KEY_="$(cat /tmpusb/$(hostname).pwd)"
-    fi
-
-    if [ -z "$KID_" ]; then
+    elif [ -f "/tmpusb/passphrase.pwd" ]; then
+        # try passphrase.pwd if all else fails
+        KEY_="$(cat /tmpusb/passphrase.pwd)"
+    elif [ -z "$KID_" ]; then
         # key not found or wrong, ask the user
         KEY_="$($ASKPASS_ "$PROMPT_")" || die "Error executing $ASKPASS_"
     fi
