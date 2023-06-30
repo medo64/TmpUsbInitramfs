@@ -37,12 +37,12 @@ PROMPT_="Caching passphrase for ${CRYPTTAB_NAME}: "
 
 if ! KID_="$(keyctl search @u user "$ID_" 2>/dev/null)" || [ -z "$KID_" ] || [ "$CRYPTTAB_TRIED" -gt 0 ]; then
     # check for TmpUsb with given identifier
-    if [ -n "$IDFILE_" ] && [ -f /TmpUsb/$IDFILE_ ]; then
+    if [ -n "$IDFILE_" ] && [ -f "/tmpusb/$IDFILE_" ]; then
         # since there is a key file with ID name, use it
-        KEY_="$(cat /TmpUsb/$IDFILE_)"
+        KEY_="$(cat /tmpusb/$IDFILE_)"
     else
         # if there is no key file with ID name, try to use hostname
-        KEY_="$(cat /TmpUsb/$(hostname).pwd)"
+        KEY_="$(cat /tmpusb/$(hostname).pwd)"
     fi
 
     if [ -z "$KID_" ]; then
