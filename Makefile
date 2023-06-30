@@ -73,6 +73,10 @@ package: dist
 	@install -d $(PACKAGE_DIR)/usr/lib/tmpusb-zfs-passphrase/initramfs/
 	@install -m 644 src/initramfs/init-premount.sh $(PACKAGE_DIR)/usr/lib/tmpusb-zfs-passphrase/initramfs/init-premount
 	@install -m 644 src/initramfs/init-bottom.sh $(PACKAGE_DIR)/usr/lib/tmpusb-zfs-passphrase/initramfs/init-bottom
+	@install -d $(PACKAGE_DIR)/usr/lib/cryptsetup/scripts
+	@install -m 755 src/initramfs/scripts/decrypt_tmpusb.sh $(PACKAGE_DIR)/usr/lib/cryptsetup/scripts/decrypt_tmpusb
+	@install -d $(PACKAGE_DIR)/usr/share/initramfs-tools/hooks
+	@install -m 755 src/initramfs/hooks/decrypt_tmpusb.sh $(PACKAGE_DIR)/usr/share/initramfs-tools/hooks/decrypt_tmpusb
 	@fakeroot dpkg-deb -Z gzip --build $(PACKAGE_DIR)/ > /dev/null
 	@cp /tmp/$(PACKAGE_NAME).deb dist/
 	@$(RM) -r $(PACKAGE_DIR)/

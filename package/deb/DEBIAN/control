@@ -8,4 +8,4 @@ Description:    Using TmpUsb drive for ZFS passphrase storage
  passphrase.
 Section:        admin
 Priority:       optional
-Depends:        bash (>= 5.0), debconf
+Depends:        bash (>= 5.0), debconf, keyutils
