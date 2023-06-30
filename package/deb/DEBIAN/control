@@ -3,9 +3,9 @@ Version:        MAJOR.MINOR.PATCH
 Architecture:   ARCHITECTURE
 Maintainer:     Josip Medved <jmedved@jmedved.com>
 Homepage:       https://www.medo64.com/tmpusb-zfs-passphrase/
-Description:    Using TmpUsb drive for ZFS passphrase storage
- Updates ZFS initramfs script to mount TmpUsb drive in order to use it for
- passphrase.
+Description:    Using TmpUsb drive for boot passphrase storage
+ Allows using TmpUsb as a password storage medium. It has plugins for
+ both LUKS and ZFS installations.
 Section:        admin
 Priority:       optional
 Depends:        bash (>= 5.0), debconf, keyutils
