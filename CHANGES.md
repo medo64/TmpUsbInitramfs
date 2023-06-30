@@ -1,3 +1,11 @@
+### 1.0.0 [2023-06-30] ###
+
+* Modification to ZFS mount script so it also works with ZFS on LUKS
+* Works for LUKS passwords too
+* Shorter wait for TmpUsb device on boot
+* Renamed package
+
+
 ### 0.2.1 [2022-01-24] ###
 
 * Fixed unmount in startup script
