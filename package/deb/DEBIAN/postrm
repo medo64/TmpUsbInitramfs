@@ -1,29 +1,6 @@
 #!/bin/bash
 set -e
 
-APP_DIR=/usr/lib/tmpusb-initramfs
-IRF_DIR=/usr/share/initramfs-tools/scripts
-
-# Restore backup
-BACKUP_FILE=$APP_DIR/backup/zfs
-CURRENT_FILE=$IRF_DIR/zfs
-if [[ -f $BACKUP_FILE ]]; then
-    chmod --reference=$CURRENT_FILE $BACKUP_FILE
-    chown --reference=$CURRENT_FILE $BACKUP_FILE
-    mv "$BACKUP_FILE" "$CURRENT_FILE"
-fi
-rmdir $APP_DIR/backup 2>/dev/null
-
-# Remove zfs-mount addition
-if [ -e /usr/lib/systemd/system/zfs-mount.service ]; then
-    sed -i '/ExecStartPre=\/usr\/lib\/tmpusb-initramfs\/bin\/tmpusb-zfs-load-keys/d' /usr/lib/systemd/system/zfs-mount.service || true
-fi
-
-# Remove startup script
-if [[ -f /etc/apt/apt.conf.d/84-tmpusb-initramfs ]]; then
-    rm /etc/apt/apt.conf.d/84-tmpusb-initramfs
-fi
-
 # Purge debconf
 if [ "$1" = "purge" -a -e /usr/share/debconf/confmodule ]; then
     . /usr/share/debconf/confmodule

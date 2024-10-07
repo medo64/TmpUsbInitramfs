@@ -68,8 +68,6 @@ package: dist
 	@install -m 644 LICENSE.md $(PACKAGE_DIR)/usr/lib/$(DIST_NAME)/LICENSE
 	@install -d $(PACKAGE_DIR)/usr/lib/$(DIST_NAME)/backup/
 	@install -d $(PACKAGE_DIR)/usr/lib/$(DIST_NAME)/bin/
-	@install -m 755 src/initramfs-adjust.sh $(PACKAGE_DIR)/usr/lib/$(DIST_NAME)/bin/tmpusb-zfs-initramfs-adjust
-	@install -m 755 src/load-keys.sh $(PACKAGE_DIR)/usr/lib/$(DIST_NAME)/bin/tmpusb-zfs-load-keys
 	@install -d $(PACKAGE_DIR)/usr/lib/cryptsetup/scripts
 	@install -m 755 src/cryptsetup/scripts/decrypt_tmpusb.sh $(PACKAGE_DIR)/usr/lib/cryptsetup/scripts/decrypt_tmpusb
 	@install -d $(PACKAGE_DIR)/usr/share/initramfs-tools/scripts/init-premount/
